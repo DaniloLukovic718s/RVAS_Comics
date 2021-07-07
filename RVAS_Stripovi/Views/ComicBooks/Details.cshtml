@@ -1,0 +1,34 @@
+﻿@model RVAS_Stripovi.Models.ComicBook
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Comicbook Details</h2>
+
+
+<h5><b>Name:</b> @Model.Name</h5>
+<h5><b>Genre:</b> @Model.Genre.Name</h5>
+<h5><b>Page Number:</b> @Model.PageNumber</h5>
+<h5><b>Price:</b> @Model.Price</h5>
+<h5>
+    <b>Is it colored?</b>
+
+    @if (@Model.Colored == true)
+    {
+        <text>Yes</text>
+    }
+    else
+    {
+        <text>No</text>
+    }
+</h5>
+
+<h5>
+    Customers: <br /> @foreach (var rental in Model.Rentals)
+    {
+        <b>@rental.Customer.Name</b><text> Date Rented: </text>
+        @rental.DateRented<text> </text>
+        <br />
+    }
+
+</h5>

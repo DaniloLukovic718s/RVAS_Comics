@@ -1,0 +1,59 @@
+﻿@model RVAS_Stripovi.Models.Customer
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Customers</h2>
+
+@using (Html.BeginForm("Save", "Customers"))
+{
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.EmailAdress)
+        @Html.TextBoxFor(c => c.EmailAdress, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.EmailAdress)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Name)
+        @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Surname)
+        @Html.TextBoxFor(c => c.Surname, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Surname)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Age)
+        @Html.TextBoxFor(c => c.Age, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Age)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Adress)
+        @Html.TextBoxFor(c => c.Adress, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Adress)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.City)
+        @Html.TextBoxFor(c => c.City, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.City)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.PhoneNumber)
+        @Html.TextBoxFor(c => c.PhoneNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.PhoneNumber)
+    </div>
+
+
+
+    @Html.HiddenFor(c => c.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

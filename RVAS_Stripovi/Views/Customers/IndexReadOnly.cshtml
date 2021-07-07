@@ -1,0 +1,79 @@
+﻿@model PagedList.IPagedList<RVAS_Stripovi.Models.Customer>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Customers</h2>
+
+<br />
+<br />
+@if (!Model.Any())
+{
+    <h2>We dont have any customers</h2>
+}
+
+
+
+@*<link href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+
+@using (Html.BeginForm("Index", "Customers", FormMethod.Get))
+{
+    <p>
+        Search: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+
+
+<table class="table table-bordered table-hover text-center" id="Customers">
+    <thead>
+        <tr>
+            <th class="text-center">
+                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th class="text-center">
+                @Html.ActionLink("Surname", "Index", new { sortOrder = ViewBag.LNameSortPArm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th class="text-center">
+                @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.EmailSortPArm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th class="text-center">Books Rented</th>
+
+
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Surname</td>
+                <td>@item.EmailAdress</td>
+                <td>
+
+                    @foreach (var rental in item.Rentals)
+                    {
+                        @rental.ComicBook.Name<text>  </text>
+                    }
+
+
+                </td>
+
+
+            </tr>
+
+
+
+        }
+    </tbody>
+
+
+</table>
+<br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

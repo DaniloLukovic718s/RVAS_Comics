@@ -1,0 +1,90 @@
+﻿@model List<RVAS_Stripovi.Models.ComicBook>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Comic Books</h2>
+
+@if (!Model.Any())
+{
+    <p> We dont have any comicbooks yet</p>
+    <h3>Add a new Comicbook: @Html.ActionLink("Add", "New", "ComicBooks", null, new { @class = "btn btn-primary" })</h3>
+}
+else
+{
+    if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+        </script>
+    }
+
+
+    <link href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <table class="table table-bordered table-hover text-center" id="ComicBook">
+        <thead>
+            <tr>
+                <th class="text-center">Comicbook</th>
+                <th class="text-center">Genre</th>
+                <th class="text-center">Price</th>
+                <th class="text-center">Customers</th>
+
+                <th class="text-center">Details & CRUD</th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Genre.Name</td>
+                <td>@item.Price<text> RSD</text></td>
+                <td>
+
+                    @foreach (var rental in item.Rentals)
+                    {
+                        @rental.Customer.Name<text>,  </text>
+                    }
+
+
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "ComicBooks", new { id = item.Id }, null) |
+                    @Html.ActionLink("Delete", "Delete", "ComicBooks", new { id = item.Id },
+                    new { onclick = "return confirm('Do you really want to delete the Comic " + item.Name + "?')" }) |
+                    @Html.ActionLink("Edit", "Edit", "ComicBooks", new { id = item.Id }, null)
+                </td>
+
+            </tr>
+
+
+
+            }
+        </tbody>
+
+
+    </table>
+
+    <h3>Add a new Comicbook: @Html.ActionLink("Add", "New", "ComicBooks", null, new { @class = "btn btn-primary" })</h3>
+
+}
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#ComicBook').DataTable();
+        });
+
+
+    </script>
+
+
+
+}

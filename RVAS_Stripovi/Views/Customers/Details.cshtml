@@ -1,0 +1,25 @@
+﻿@model RVAS_Stripovi.Models.Customer
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Customer Details</h2>
+
+<h5><b>Email Adress:</b> @Model.EmailAdress</h5>
+<h5><b>Name:</b> @Model.Name</h5>
+<h5><b>Surname:</b> @Model.Surname</h5>
+<h5><b>Age:</b> @Model.Age</h5>
+<h5><b>Adress:</b> @Model.Adress</h5>
+<h5><b>City:</b> @Model.City</h5>
+<h5><b>Phone Number:</b> @Model.PhoneNumber</h5>
+<h5>
+    Books Rented: <br /> @foreach (var rental in Model.Rentals)
+    {
+        <b>@rental.ComicBook.Name</b><text> Date Rented: </text>
+        @rental.DateRented<text> </text>
+        <br />
+    }
+
+</h5>
+<h5></h5>
+

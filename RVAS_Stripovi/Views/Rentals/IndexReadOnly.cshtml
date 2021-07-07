@@ -1,0 +1,71 @@
+﻿@model List<RVAS_Stripovi.Models.Rental>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Comicbook Rentals</h2>
+
+@if (!Model.Any())
+{
+    <p> We dont have any comicbooks yet</p>
+
+}
+else
+{
+
+    <link href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+
+    <table class="table table-bordered table-hover text-center" id="Rentals">
+        <thead>
+            <tr>
+                <th class="text-center">Comicbook</th>
+                <th class="text-center">Genre</th>
+                <th class="text-center">Customer Name</th>
+                <th class="text-center">Date Rented</th>
+                <th class="text-center">Date Returned</th>
+
+
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ComicBook.Name</td>
+                    <td>@item.ComicBook.Genre.Name</td>
+                    <td>@item.Customer.Name</td>
+                    <td>@item.DateRented</td>
+                    <td>@item.DueDate</td>
+                    
+
+
+                </tr>
+
+
+
+            }
+        </tbody>
+
+
+    </table>
+
+
+
+}
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#Rentals').DataTable();
+        });
+
+
+    </script>
+
+
+
+}

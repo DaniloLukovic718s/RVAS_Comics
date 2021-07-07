@@ -1,0 +1,36 @@
+﻿@model RVAS_Stripovi.ViewModel.RentalFormViewModel
+@{
+    ViewBag.Title = "RentalForm";
+}
+
+<h2>RentalForm</h2>
+
+@using (Html.BeginForm("Save", "Rentals"))
+{
+
+<div class="form-group">
+    @Html.LabelFor(c => c.Rental.DateRented)
+    @Html.TextBoxFor(c => c.Rental.DateRented, "{0:d MMM yyyy}", new { @class = "form-control" })
+    @Html.ValidationMessageFor(c => c.Rental.DateRented)
+</div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Rental.CustomerId)
+        @Html.DropDownListFor(c => c.Rental.CustomerId, new SelectList(Model.Customers, "Id", "Name"), "Select the customer", new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Rental.CustomerId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Rental.ComicBookId)
+        @Html.DropDownListFor(c => c.Rental.ComicBookId, new SelectList(Model.ComicBooks, "Id", "Name"), "Select the comicbook", new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Rental.ComicBookId)
+    </div>
+
+    @Html.HiddenFor(c => c.Rental.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

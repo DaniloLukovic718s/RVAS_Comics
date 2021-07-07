@@ -1,0 +1,16 @@
+﻿@model RVAS_Stripovi.Models.Rental
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Comicbook Details</h2>
+
+<h5><b>Rental Customer Name:</b> @Model.Customer.Name</h5>
+<h5><b>Comicbook Name:</b> @Model.ComicBook.Name</h5>
+<h5><b>Genre:</b> @Model.ComicBook.Genre.Name</h5>
+<h5><b>Price:</b> @Model.ComicBook.Price</h5>
+<h5><b>Date Rented:</b> @Model.DateRented</h5>
+<h5><b>Due Date:</b> @Model.DueDate</h5>
+
+
+

@@ -1,0 +1,103 @@
+﻿@model PagedList.IPagedList<RVAS_Stripovi.Models.Customer>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Customers</h2>
+
+<br />
+<br />
+@if (!Model.Any())
+{
+<h2>We dont have any customers</h2>
+<h3>Add a new Customer: @Html.ActionLink("Add", "New", "Customers", null, new { @class = "btn btn-primary" })</h3>
+}
+
+
+
+    @*<link href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+
+    @using (Html.BeginForm("Index", "Customers", FormMethod.Get))
+    {
+        <p>
+            Search: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+
+
+
+    <table class="table table-bordered table-hover text-center" id="Customers">
+        <thead>
+            <tr>
+                <th class="text-center">
+                    @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+
+                </th>
+                <th class="text-center">
+                    @Html.ActionLink("Surname", "Index", new { sortOrder = ViewBag.LNameSortPArm, currentFilter = ViewBag.CurrentFilter })
+                </th>
+                <th class="text-center">
+                    @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.EmailSortPArm, currentFilter = ViewBag.CurrentFilter })
+                </th>
+                <th class="text-center">Comicbooks Rented</th>
+                <th class="text-center">Details & CRUD</th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Surname</td>
+                    <td>@item.EmailAdress</td>
+                    <td>
+
+                        @foreach (var rental in item.Rentals)
+                        {
+                            @rental.ComicBook.Name<text>  </text>
+                        }
+
+
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Customers", new { id = item.Id }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Customers", new { id = item.Id },
+                        new { onclick = "return confirm('Do you really want to delete the Customer " + item.Name + "?')" })|
+                        @Html.ActionLink("Edit", "Edit", "Customers", new { id = item.Id }, null)
+                    </td>
+
+                </tr>
+
+
+
+            }
+        </tbody>
+
+
+    </table>
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+<h3>Add a new Customer: @Html.ActionLink("Add", "New", "Customers", null, new { @class = "btn btn-primary" })</h3>
+   
+
+    @*@section scripts{
+            <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" type="text/javascript"></script>
+            <script>
+
+                $(document).ready(function () {
+                    $('#Customers').DataTable();
+                });
+
+
+            </script>
+
+
+
+        }*@

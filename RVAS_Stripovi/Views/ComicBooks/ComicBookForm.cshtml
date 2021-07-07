@@ -1,0 +1,45 @@
+﻿@model RVAS_Stripovi.ViewModel.ComicBookFormViewModel
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Comic Book</h2>
+
+@using (Html.BeginForm("Save", "ComicBooks"))
+{
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.ComicBook.Name)
+        @Html.TextBoxFor(c => c.ComicBook.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ComicBook.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.ComicBook.GenreId)
+        @Html.DropDownListFor(c => c.ComicBook.GenreId, new SelectList(Model.Genres, "Id", "Name"), "Select the genre", new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ComicBook.GenreId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.ComicBook.PageNumber)
+        @Html.TextBoxFor(c => c.ComicBook.PageNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ComicBook.PageNumber)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.ComicBook.Price)
+        @Html.TextBoxFor(c => c.ComicBook.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.ComicBook.Price)
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(c => c.ComicBook.Colored) Is the Comicbook colored?
+        </label>
+    </div>
+    @Html.HiddenFor(c => c.ComicBook.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
